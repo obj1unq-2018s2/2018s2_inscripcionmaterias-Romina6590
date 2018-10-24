@@ -1,0 +1,17 @@
+import estudiante.*
+import materias.*
+
+// auto-generated at 23/10/2018 20:59:12
+describe "universidad"{
+    const orga = new Materia (curso=1, anio=1, creditosOtorga= 10)
+	const mate1 = new Materia (curso=2, anio=1, creditosOtorga= 10)
+	const intro = new Materia (curso=3, anio=1, creditosOtorga= 10)
+	const jose = new Estudiante (materiasInscriptas = #{orga}, materiasAprobadas = #{mate1}, carreras = #{intro}, creditosTotales = 10)
+	
+ test "agregar una materia aprobada"{
+ 	jose.aprobo(orga)
+ 	assert.equals(#{mate1,orga},jose.materiasAprobadas())
+ }	
+	
+
+}
