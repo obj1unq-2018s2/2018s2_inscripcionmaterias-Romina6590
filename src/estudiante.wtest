@@ -1,17 +1,42 @@
 import estudiante.*
 import materias.*
+import universidad.*
 
 // auto-generated at 23/10/2018 20:59:12
 describe "universidad"{
-    const orga = new Materia (curso=1, anio=1, creditosOtorga= 10)
-	const mate1 = new Materia (curso=2, anio=1, creditosOtorga= 10)
-	const intro = new Materia (curso=3, anio=1, creditosOtorga= 10)
-	const jose = new Estudiante (materiasInscriptas = #{orga}, materiasAprobadas = #{mate1}, carreras = #{intro}, creditosTotales = 10)
+	const orga = new MateriaSinPrerrequisito (curso=#{}, anio=1, creditosOtorga= 10, cupo = 1, listaEspera= #{})
+	const mate1 = new MateriaPorAnio (curso=#{}, anio=2, creditosOtorga= 10, cupo = 20, listaEspera= #{})
+	const obj = new MateriaConCorrelatividad (curso=#{}, anio=1, creditosOtorga= 10, cupo = 20, listaEspera = #{}, materiasCorrelativas =#{orga})
+	const intro = new MateriaConCreditos(curso=#{}, anio=1, creditosOtorga= 10, cupo = 20, listaEspera= #{},creditosNecesarios=10)
+	const prog = new Carrera (materias = #{orga, mate1, obj})
 	
- test "agregar una materia aprobada"{
+	const jose = new Estudiante (materiasEnEspera=#{},materiasInscriptas = #{}, materiasAprobadas = #{}, carreras = #{prog}, creditosTotales = 0, anioCursada = 1)
+	const pepe = new Estudiante (materiasEnEspera=#{},materiasInscriptas = #{}, materiasAprobadas = #{}, carreras = #{prog}, creditosTotales = 0, anioCursada = 1)
+	const anacleta = new Estudiante (materiasEnEspera=#{},materiasInscriptas = #{}, materiasAprobadas = #{}, carreras = #{prog}, creditosTotales = 0, anioCursada = 1)
+    
+	
+	
+	
+ test "Un alumno se intenta inscribir a una materia que ya cursó, se rechaza"{
+ 	universidad.inscribirAlumno(jose,orga)
  	jose.aprobo(orga)
- 	assert.equals(#{mate1,orga},jose.materiasAprobadas())
- }	
+ 	universidad.inscribirAlumno(jose,intro)
+ 	jose.aprobo(intro)
+ 	assert.notThat(jose.puedeCursar(intro))
+ 	
+ }
+ test "Un alumno se intenta inscribir a una materia pero le falta una correlativa, se rechaza"{
+ 	
+ 	assert.notThat(jose.puedeCursar(obj))
+ 	
+ }
+ test "Se quiere inscribir pero no hay cupo"{
+ 	universidad.inscribirAlumno(jose,orga)
+ 	universidad.inscribirAlumno(pepe,orga)
+ 	universidad.inscribirAlumno(anacleta,orga)
+ 	assert.equals(#{anacleta,pepe},orga.listaEspera())
+ }
+ 	
 	
 
 }

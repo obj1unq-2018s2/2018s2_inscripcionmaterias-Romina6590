@@ -55,9 +55,11 @@ el primer estudiante de la lista debe obtener su lugar en el curso.
     * Dado un estudiante, todas las materias en las que está inscripto.
     * Dado un estudiante, todas las materias en las que quedó en lista de espera.
 
-7. Implementar los tests descritos a continuación. Un alumno se intenta inscribir a una materia que ya cursó, se rechaza.
+7. Implementar los tests descritos a continuación: 
+    *Un alumno se intenta inscribir a una materia que ya cursó, se rechaza.
     * Un alumno se intenta inscribir a una materia pero le falta una correlativa, se rechaza.
-    * Alumno quiere inscribirse a la materia y cumple los requisitos pero no hay cupo. Usar criterio por orden de llegada y el alumno queda en lista de espera.
+    * Alumno quiere inscribirse a la materia y cumple los requisitos pero no hay cupo. Usar criterio por orden de llegada y 
+    el alumno queda en lista de espera.
 
 ## Bonus
 8. Diferentes materias pueden tener diferentes estrategias para manejar su lista de espera, a saber:
